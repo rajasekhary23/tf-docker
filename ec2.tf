@@ -6,7 +6,7 @@ resource "aws_key_pair" "terraform" {
 resource "aws_security_group" "allow_tls" {
   name        = "allow_all_ports"
   description = "Allow all ports"
-  vpc_id      = "vpc-0e8b8f8294711f53c" #default vpc id
+  vpc_id      = "vpc-01e2bd86538e32aa2" #default vpc id
 
   ingress {
     description      = "allow_all_ports"
@@ -34,7 +34,7 @@ resource "aws_instance" "your-wish" {
     # from instance_type map instance will be selected based on the current workspace
     instance_type = "t2.micro"
     key_name = aws_key_pair.terraform.key_name
-    security_groups = [aws_security_group.allow_all_ports.name]
+    security_groups = [aws_security_group.allow_tls.name]
     user_data = "${file("scripts/docker.sh")}"
     # where you are running terraform command
     provisioner "local-exec" {
